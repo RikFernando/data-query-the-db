@@ -24,7 +24,15 @@ def get_waiting_time(db):
     # get a list with all the orders displaying each column
     # and calculate an extra TimeDelta column displaying the number of days
     # between OrderDate and ShippedDate, ordered by ascending TimeDelta
-    pass  # YOUR CODE HERE
+    query ='''
+    SELECT *, julianday(ShippedDate) - julianday(OrderDate) AS TimeDelta
+    FROM Orders
+    ORDER BY TimeDelta ASC
+    '''
+    db.execute(query)
+    results = db.fetchall()
+    return results
+
 
 # import sqlite3
 # conn = sqlite3.connect('data/ecommerce.sqlite')
